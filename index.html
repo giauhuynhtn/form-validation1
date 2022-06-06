@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="./assets/main.css">
+</head>
+<body>
+    <div class="main">
+
+        <form action="" method="POST" class="form" id="form-1">
+            <h3 class="heading">Member register</h3>
+            <p class="desc">Learn coding free together at F8 ❤️</p>
+        
+            <div class="spacer"></div>
+        
+            <div class="form-group">
+                <label for="fullname" class="form-label">Fullname</label>
+                <input id="fullname" name="fullname" type="text" placeholder="Example: Giau Huynh" class="form-control">
+                <span class="form-message"></span>
+            </div>
+        
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="avatar" class="form-label">Avatar</label>
+                <input id="avatar" name="avatar" type="file" class="form-control">
+                <span class="form-message"></span>
+            </div>
+        
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" name="password" type="password" placeholder="Your password" class="form-control">
+                <span class="form-message"></span>
+            </div>
+        
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">Re-type password</label>
+                <input id="password_confirmation" name="password_confirmation" placeholder="Confirm your password" type="password" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="province" class="form-label">Province/City</label>
+                <select id="province" name="province" class="form-control">
+                    <option value="">-- Select: Province/City --</option>
+                    <option value="tam">Tampere</option>
+                    <option value="hel">Helsinki</option>
+                    <option value="tur">Turku</option>
+                    <option value="vas">Vaasa</option>
+                    <option value="por">Pori</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="form-label">Gender</label>
+                
+                <div class="horizontal">
+                    <div >
+                        <input name="gender" value="male" type="radio" class="form-control">
+                        Male
+                    </div>
+                    <div>
+                        <input name="gender" value="female" type="radio" class="form-control">
+                        Female
+                    </div>
+                    <div>
+                        <input name="gender" value="other" type="radio" class="form-control">
+                        Other
+                    </div>
+
+                </div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Delivery</label>
+                
+                <div class="horizontal">
+                    <div >
+                        <input name="delivery" value="post" type="checkbox" class="form-control">
+                        Post
+                    </div>
+                    <div>
+                        <input name="delivery" value="email" type="checkbox" class="form-control">
+                        Email
+                    </div>
+                    <div>
+                        <input name="delivery" value="sms" type="checkbox" class="form-control">
+                        SMS
+                    </div>
+
+                </div>
+                <span class="form-message"></span>
+            </div>
+        
+            <button class="form-submit">Register</button>
+        </form>
+    </div>
+    <script src="./assets/validator.js"></script>
+    <script>
+        // Expected output
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [ 
+                Validator.isRequired('#fullname'),
+                Validator.isRequired('#email'),
+                Validator.isEmail('#email'),
+                Validator.isRequired('#avatar'),
+                Validator.isRequired('#password'),
+                Validator.minLength('#password', 6),
+                Validator.isRequired('#password_confirmation'),
+                Validator.isConfirmed('#password_confirmation', () => {
+                    return document.querySelector('#form-1 #password').value;
+                }, 'Re-type password is not correct'),
+                Validator.isRequired('#province'),
+                Validator.isRequired('input[name="gender"]'),
+                Validator.isRequired('input[name="delivery"]'),
+            ],
+            onSubmit: function (data) {
+                // Call API
+                console.log(data);
+            }
+        })
+    </script>
+</body>
+</html>
